@@ -49,17 +49,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Tab  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |Enter |
+ * | Tab  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |  "   |
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Ctrl | Alt  | Move | GUI  |Lower | Bksp |Space |Raise | Move |  Ä Ö |  Ü ß | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
   {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    DE_Y,    KC_U,    KC_I,    KC_O,         KC_P,         KC_BSPC},
-  {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,         DE_SCLN,      KC_ENT },
-  {KC_LSFT, DE_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,       DE_SLSH,      DE_DQOT},
+  {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,         DE_SCLN,      DE_DQOT},
+  {KC_LSFT, DE_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,       DE_SLSH,      KC_ENT },
   {KC_LCTL, KC_LALT, MOVE,    KC_LGUI, LOWER,   KC_BSPC, KC_SPC,  RAISE,   MOVE,    TD(TD_AE_OE), TD(TD_UE_SS), KC_RCTL}
 },
 
@@ -89,19 +89,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |   1  |   2  |   3  |   ?  | Ins  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |   0  |   ,  |      |      |
+ * |      |      |      |      |      |  Del |      |      |   0  |   ,  |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
   {DE_TILD, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
   {_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_4,    KC_5,    KC_6,    DE_PIPE, DE_BSLS},
   {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_1,    KC_2,    KC_3,    DE_QST,  KC_INS},
-  {_______, _______, _______, _______, _______, _______, _______, _______, KC_0,    KC_COMM, _______, _______}
+  {_______, _______, _______, _______, _______, KC_DEL,  _______, _______, KC_0,    KC_COMM, _______, _______}
 },
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
- * |   `  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
+ * |   `  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Del  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |   ä  |   ö  |   ü  |   ß  |      |      |   _  |   +  |   [  |   ]  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
-  {DE_GRV,  DE_EXLM, DE_AT,   DE_HASH, DE_DLR,  DE_PERC, DE_CIRC, DE_AMPR, DE_ASTR, DE_LPRN, DE_RPRN, KC_BSPC},
+  {DE_GRV,  DE_EXLM, DE_AT,   DE_HASH, DE_DLR,  DE_PERC, DE_CIRC, DE_AMPR, DE_ASTR, DE_LPRN, DE_RPRN, KC_DEL },
   {_______, DE_AE,   DE_OE,   DE_UE,   DE_SS,   _______, _______, DE_UNDS, DE_PLUS, DE_LBRC, DE_RBRC, _______},
   {_______, _______, _______, _______, _______, _______, _______, DE_MINS, DE_EQL,  DE_LCBR, DE_RCBR, DE_QUOT},
   {_______, _______, _______, _______, _______, KC_DEL,  _______, _______, _______, DE_LESS, DE_MORE, _______}
