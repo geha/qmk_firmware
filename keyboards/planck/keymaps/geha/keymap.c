@@ -39,7 +39,8 @@ enum planck_keycodes {
 };
 
 enum tap_dance_keys {
-  TD_QUOT = 0
+  TD_AE_OE = 0,
+  TD_UE_SS
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -52,14 +53,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |  "   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | Move | GUI  |Lower | Bksp |Space |Raise | Move |      |      |      |
+ * | Ctrl | Alt  | Move | GUI  |Lower | Bksp |Space |Raise | Move |  Ä Ö |  Ü ß | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
-  {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    DE_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-  {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT },
-  {KC_LSFT, DE_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  DE_SLSH, TD(TD_QUOT)},
-  {KC_LCTL, KC_LALT, MOVE,    KC_LGUI, LOWER,   KC_BSPC, KC_SPC,  RAISE,   MOVE,    _______, _______, KC_RCTL}
+  {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    DE_Y,    KC_U,    KC_I,    KC_O,         KC_P,         KC_BSPC},
+  {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,         DE_SCLN,      KC_ENT },
+  {KC_LSFT, DE_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,       DE_SLSH,      DE_DQOT},
+  {KC_LCTL, KC_LALT, MOVE,    KC_LGUI, LOWER,   KC_BSPC, KC_SPC,  RAISE,   MOVE,    TD(TD_AE_OE), TD(TD_UE_SS), KC_RCTL}
 },
 
 /* Colemak
@@ -84,71 +85,71 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   4  |   5  |   6  | Ins  |  |   |
+ * |      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   4  |   5  |   6  |   \  |  |   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |   1  |   2  |   3  |      |      |
+ * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |   1  |   2  |   3  |   ?  | Ins  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |   0  |   ,  | Vol+ | Play |
+ * |      |      |      |      |      |      |      |      |   0  |   ,  |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
   {DE_TILD, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
-  {_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_4,    KC_5,    KC_6,    KC_INS,  DE_PIPE},
-  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_1,    KC_2,    KC_3,    _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, KC_0,    KC_COMM, KC_VOLU, KC_MPLY}
+  {_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_4,    KC_5,    KC_6,    DE_BSLS, DE_PIPE},
+  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_1,    KC_2,    KC_3,    DE_QST,  KC_INS},
+  {_______, _______, _______, _______, _______, _______, _______, _______, KC_0,    KC_COMM, _______, _______}
 },
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |      |      |   [  |   ]  |  \   |
+ * |      |   ä  |   ö  |   ü  |   ß  |      |      |   _  |   +  |   [  |   ]  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |      |      |   {  |   }  |      |
+ * |      |      |      |      |      |      |      |   -  |   =  |   {  |   }  |  '   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |  Del |      |      | Next | Vol- | Vol+ | Play |
+ * |      |      |      |      |      |  Del |      |      |      |   <  |   >  |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
   {DE_GRV,  DE_EXLM, DE_AT,   DE_HASH, DE_DLR,  DE_PERC, DE_CIRC, DE_AMPR, DE_ASTR, DE_LPRN, DE_RPRN, KC_BSPC},
-  {_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, DE_LBRC, DE_RBRC, DE_BSLS},
-  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, DE_LCBR, DE_RCBR, _______},
-  {_______, _______, _______, _______, _______, KC_DEL,  _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
+  {_______, DE_AE,   DE_OE,   DE_UE,   DE_SS,   _______, _______, DE_UNDS, DE_PLUS, DE_LBRC, DE_RBRC, _______},
+  {_______, _______, _______, _______, _______, _______, _______, DE_MINS, DE_EQL,  DE_LCBR, DE_RCBR, DE_QUOT},
+  {_______, _______, _______, _______, _______, KC_DEL,  _______, _______, _______, DE_LESS, DE_MORE, _______}
 },
 
 /* Movement
  * ,-----------------------------------------------------------------------------------.
- * |      | Home |  Up  | End  | Pg Up|      | Pg Up| Home |  Up  | End  |      |      |
+ * |      | Home |  Up  | End  | Pg Up|      | Pg Up| Home |  Up  | End  |      | Next |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | Left | Down | Right| Pg Dn|      | Pg Dn| Left | Down |Right |      |      |
+ * |      | Left | Down | Right| Pg Dn|      | Pg Dn| Left | Down |Right |      | Vol+ |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |      |      |      |      |      | Vol- |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |      |      |      |      |      | Play |
  * `-----------------------------------------------------------------------------------'
  */
 [_MOVEMENT] = {
-  {_______, KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______, KC_PGUP, KC_HOME, KC_UP,   KC_END,  _______, _______},
-  {_______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+  {_______, KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______, KC_PGUP, KC_HOME, KC_UP,   KC_END,  _______, KC_MNXT},
+  {_______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_VOLU},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_VOLD},
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MPLY}
 },
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
  * |      | Reset|      |      |      |      |      |      |      |PrntSc| Scrl |Pause |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|      |      |      |
+ * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|      |      |  °   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|PrntSc| Scrl |Pause |      |      |
+ * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|PrntSc| Scrl |Pause |      |  ´   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
   {_______, RESET,   DEBUG,   _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS},
-  {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, _______, _______, _______},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  KC_PSCR, KC_SLCK, KC_PAUS, _______, _______},
+  {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, _______, _______, DE_RING},
+  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  KC_PSCR, KC_SLCK, KC_PAUS, _______, DE_ACUT},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
 
@@ -161,7 +162,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   // Tap once for single quotation mark and twice for double
-  [TD_QUOT] = ACTION_TAP_DANCE_DOUBLE(DE_QUOT, DE_DQOT)
+  [TD_AE_OE] = ACTION_TAP_DANCE_DOUBLE(DE_AE, DE_OE),
+  [TD_UE_SS] = ACTION_TAP_DANCE_DOUBLE(DE_UE, DE_SS)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
