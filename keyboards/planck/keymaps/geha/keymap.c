@@ -35,7 +35,12 @@ enum planck_keycodes {
   LOWER,
   RAISE,
   MOVE,
-  EXT_PLV
+  EXT_PLV,
+  // Custom macro keys
+  CK_QUOT,
+  CK_CIRC,
+  CK_GRAV,
+  CK_TILD
 };
 
 enum tap_dance_keys {
@@ -57,10 +62,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
-  {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    DE_Y,    KC_U,    KC_I,    KC_O,         KC_P,         KC_BSPC},
-  {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,         DE_SCLN,      DE_DQOT},
-  {KC_LSFT, DE_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,       DE_SLSH,      KC_ENT },
-  {KC_LCTL, KC_LGUI, KC_LALT, MOVE,    LOWER,   KC_BSPC, KC_SPC,  RAISE,   MOVE,    TD(TD_AE_OE), TD(TD_UE_SS), KC_RCTL}
+  {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,         KC_P,         KC_BSPC},
+  {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,         KC_SCLN,      CK_QUOT},
+  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,       KC_SLSH,      KC_ENT },
+  {KC_LCTL, KC_LGUI, KC_LALT, MOVE,    LOWER,   KC_BSPC, KC_SPC,  RAISE,   MOVE,    TD(TD_AE_OE), TD(TD_UE_SS), RALT(KC_Q)}
 },
 
 /* Colemak
@@ -75,9 +80,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = {
-  {KC_ESC,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    DE_Y,    KC_SCLN, KC_BSPC},
+  {KC_ESC,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
   {KC_TAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_ENT },
-  {KC_LSFT, DE_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_QUOT},
+  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_QUOT},
   {KC_LCTL, KC_LALT, KC_LGUI, KC_LGUI, LOWER,   KC_BSPC, KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 
@@ -93,9 +98,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
-  {DE_TILD, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL },
-  {_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_4,    KC_5,    KC_6,    DE_PIPE, DE_BSLS},
-  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_1,    KC_2,    KC_3,    DE_QST,  KC_INS},
+  {CK_TILD, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL },
+  {_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_4,    KC_5,    KC_6,    KC_PIPE, KC_BSLS},
+  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_1,    KC_2,    KC_3,    _______,  KC_INS},
   {_______, _______, _______, _______, _______, KC_DEL,  _______, _______, KC_0,    KC_COMM, _______, _______}
 },
 
@@ -111,9 +116,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
-  {DE_GRV,  DE_EXLM, DE_AT,   DE_HASH, DE_DLR,  DE_PERC, DE_CIRC, DE_AMPR, DE_ASTR, DE_LPRN, DE_RPRN, KC_DEL },
-  {_______, _______, DE_LESS, DE_SLSH, DE_MORE, _______, _______, DE_UNDS, DE_PLUS, DE_LCBR, DE_RCBR, DE_QUOT},
-  {_______, _______, _______, DE_LBRC, DE_RBRC, _______, _______, DE_MINS, DE_EQL,  DE_LBRC, DE_RBRC, _______},
+  {CK_GRAV, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, CK_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL },
+  {_______, _______, KC_LABK, KC_SLSH, KC_RABK, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_QUOT},
+  {_______, _______, _______, KC_LBRC, KC_RBRC, _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, _______},
   {_______, _______, _______, _______, _______, KC_DEL,  _______, _______, _______, _______, _______, _______}
 },
 
@@ -148,8 +153,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = {
   {_______, RESET,   DEBUG,   _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS},
-  {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, _______, _______, DE_RING},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  KC_PSCR, KC_SLCK, KC_PAUS, _______, DE_ACUT},
+  {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, _______, _______, _______},
+  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  KC_PSCR, KC_SLCK, KC_PAUS, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
 
@@ -160,10 +165,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
 
+void dance_ae_oe_finished(qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    SEND_STRING(SS_DOWN(X_RALT)SS_TAP(X_Q)SS_UP(X_RALT));
+    reset_tap_dance(state);
+  }
+  if (state->count == 2) {
+    SEND_STRING(SS_DOWN(X_RALT)SS_TAP(X_P)SS_UP(X_RALT));
+    reset_tap_dance(state);
+  }
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
-  // Tap once for single quotation mark and twice for double
-  [TD_AE_OE] = ACTION_TAP_DANCE_DOUBLE(DE_AE, DE_OE),
-  [TD_UE_SS] = ACTION_TAP_DANCE_DOUBLE(DE_UE, DE_SS)
+  // Tap dance macros for umlauts and sharp s
+  [TD_AE_OE] = ACTION_TAP_DANCE_FN(dance_ae_oe_finished),
+  [TD_UE_SS] = ACTION_TAP_DANCE_DOUBLE(LALT(LCTL(KC_Y)), LALT(LCTL(KC_S)))
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -208,6 +224,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         layer_off(_MOVEMENT);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+      break;
+    case CK_QUOT:
+      if (record->event.pressed) {
+        SEND_STRING(SS_TAP(X_QUOTE)SS_TAP(X_SPACE));
+      }
+      return false;
+      break;
+    case CK_CIRC:
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LSHIFT)SS_TAP(X_6)SS_UP(X_LSHIFT)SS_TAP(X_SPACE));
+      }
+      return false;
+      break;
+    case CK_GRAV:
+      if (record->event.pressed) {
+        SEND_STRING(SS_TAP(X_GRAVE)SS_TAP(X_SPACE));
+      }
+      return false;
+      break;
+    case CK_TILD:
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LSHIFT)SS_TAP(X_GRAVE)SS_UP(X_LSHIFT)SS_TAP(X_SPACE));
       }
       return false;
       break;
