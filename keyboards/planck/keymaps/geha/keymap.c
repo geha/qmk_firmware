@@ -38,6 +38,10 @@ enum planck_keycodes {
   EXT_PLV
 };
 
+enum tap_dance_keys {
+  TD_QUOT = 0
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
@@ -54,8 +58,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = {
   {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    DE_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT },
-  {KC_LSFT, DE_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_QUOT},
-  {KC_LCTL, KC_LALT, MOVE,    KC_LGUI, LOWER,   KC_BSPC, KC_SPC,  RAISE,   MOVE,    _______, _______, _______}
+  {KC_LSFT, DE_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  DE_SLSH, TD(TD_QUOT)},
+  {KC_LCTL, KC_LALT, MOVE,    KC_LGUI, LOWER,   KC_BSPC, KC_SPC,  RAISE,   MOVE,    _______, _______, KC_RCTL}
 },
 
 /* Colemak
@@ -64,6 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Tab  |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |  "   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Ctrl | Alt  | GUI  | GUI  |Lower | Bksp |Space |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
@@ -147,13 +152,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
 
-
 };
 
 #ifdef AUDIO_ENABLE
   // float plover_song[][2]     = SONG(PLOVER_SOUND);
   // float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
 #endif
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  // Tap once for single quotation mark and twice for double
+  [TD_QUOT] = ACTION_TAP_DANCE_DOUBLE(DE_QUOT, DE_DQOT)
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {

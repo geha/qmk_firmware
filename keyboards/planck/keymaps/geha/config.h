@@ -39,3 +39,6 @@
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
 
 #endif
+
+// time in ms for tap dances to register
+#define TAPPING_TERM 200
