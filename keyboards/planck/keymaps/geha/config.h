@@ -42,3 +42,11 @@
 
 // time in ms for tap dances to register
 #define TAPPING_TERM 200
+
+#define MOUSEKEY_MOVE_DELTA        1
+#define MOUSEKEY_DELAY             300
+#define MOUSEKEY_INTERVAL          25
+#define MOUSEKEY_MAX_SPEED         50
+#define MOUSEKEY_TIME_TO_MAX       40
+#define MOUSEKEY_WHEEL_MAX_SPEED   8
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 40

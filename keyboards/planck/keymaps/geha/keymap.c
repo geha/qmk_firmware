@@ -25,6 +25,7 @@ enum planck_layers {
   _LOWER,
   _RAISE,
   _MOVEMENT,
+  _MEDIA,
   _ADJUST
 };
 
@@ -34,6 +35,7 @@ enum planck_keycodes {
   LOWER,
   RAISE,
   MOVE,
+  MEDIA,
   EXT_PLV,
   ZELDA,
   ONE_UP
@@ -56,14 +58,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl |  GUI |  Alt | Move |Lower | Bksp |Space |Raise | Move |  Ä Ö |  Ü ß | Ctrl |
+ * | Ctrl |  GUI |  Alt | Media|Lower | Bksp |Space |Raise | Move |  Ä Ö |  Ü ß | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
   {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,         KC_P,         KC_BSPC},
   {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,         KC_SCLN,      KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,       KC_SLSH,      KC_ENT },
-  {KC_LCTL, KC_LGUI, KC_LALT, MOVE,    LOWER,   KC_BSPC, KC_SPC,  RAISE,   MOVE,    TD(TD_AE_OE), TD(TD_UE_SS), KC_RCTL}
+  {KC_LCTL, KC_LGUI, KC_LALT, MEDIA,   LOWER,   KC_BSPC, KC_SPC,  RAISE,   MOVE,    TD(TD_AE_OE), TD(TD_UE_SS), KC_RCTL}
 },
 
 /* Colemak
@@ -74,14 +76,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl |  GUI |  Alt | Move |Lower | Bksp |Space |Raise | Move |  Ä Ö |  Ü ß | Ctrl |
+ * | Ctrl |  GUI |  Alt | Media|Lower | Bksp |Space |Raise | Move |  Ä Ö |  Ü ß | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = {
   {KC_ESC,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,         KC_SCLN,      KC_BSPC},
   {KC_TAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,         KC_O,         KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,       KC_SLSH,      KC_ENT },
-  {KC_LCTL, KC_LGUI, KC_LALT, MOVE,    LOWER,   KC_BSPC, KC_SPC,  RAISE,   MOVE,    TD(TD_AE_OE), TD(TD_UE_SS), KC_RCTL}
+  {KC_LCTL, KC_LGUI, KC_LALT, MEDIA,   LOWER,   KC_BSPC, KC_SPC,  RAISE,   MOVE,    TD(TD_AE_OE), TD(TD_UE_SS), KC_RCTL}
 },
 
 /* Lower
@@ -122,19 +124,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Movement
  * ,-----------------------------------------------------------------------------------.
- * |      | Vol- | Mute | Vol+ |      |      |      |      |Pg Up |  Up  |Pg Dn | Del  |
+ * |      | Wh U | Ms U | Wh D |      | Ac 2 |      |      |Pg Up |  Up  |Pg Dn | Del  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | Prev | Play | Next |      |      |      | Home | Left | Down |Right | Ins  |
+ * |      | Ms L | Ms D | Ms R | Ms 5 | Ac 1 |      | Home | Left | Down |Right | Ins  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      | Float|      |      |      |  End |      |      | Menu |      |
+ * |      |      |      | Ms 3 | Ms 4 | Ac 0 |      |  End |      |      | Menu |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      | Ms 2 | Ms 1 |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_MOVEMENT] = {
+  {_______, KC_WH_U, KC_MS_U, KC_WH_D, _______, KC_ACL2, _______, _______, KC_PGUP, KC_UP,   KC_PGDN, KC_DEL },
+  {_______, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN5, KC_ACL1, _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS },
+  {_______, _______, _______, KC_BTN3, KC_BTN4, KC_ACL0, _______, KC_END,  _______, _______, KC_APP,  _______},
+  {_______, _______, _______, KC_BTN2, KC_BTN1, _______, _______, _______, _______, _______, _______, _______}
+},
+
+/* Media
+ * ,-----------------------------------------------------------------------------------.
+ * |      | Vol- | Mute | Vol+ |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      | Prev | Play | Next |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      | Float|      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_MOVEMENT] = {
-  {_______, KC_VOLD, KC_MUTE, KC_VOLU, _______, _______, _______, _______, KC_PGUP, KC_UP,   KC_PGDN, KC_DEL },
-  {_______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS },
-  {_______, _______, _______, M_FLOAT, _______, _______, _______, KC_END,  _______, _______, KC_APP,  _______},
+[_MEDIA] = {
+  {_______, KC_VOLD, KC_MUTE, KC_VOLU, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, _______, _______, _______, _______, _______},
+  {_______, _______, _______, M_FLOAT, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
@@ -250,6 +270,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_MOVEMENT);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+      break;
+    case MEDIA:
+      if (record->event.pressed) {
+        layer_on(_MEDIA);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_MEDIA);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
