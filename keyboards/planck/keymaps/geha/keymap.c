@@ -46,6 +46,10 @@ enum tap_dance_keys {
   TD_UE_SS
 };
 
+#define KC_AE RALT(KC_Q)
+#define KC_OE RALT(KC_P)
+#define KC_UE RALT(KC_Y)
+#define KC_SS RALT(KC_S)
 #define M_FLOAT LCTL(LSFT(KC_9))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -108,17 +112,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |   <  |   /  |   >  |      |      |   -  |   =  |   {  |   }  |  \   |
+ * |      |      |   <  |   /  |   >  |   Ü  |   ß  |   -  |   =  |   {  |   }  |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |   [  |   ]  |      |      |   _  |   +  |   [  |   ]  |      |
+ * |      |      |      |   [  |   ]  |   Ö  |   Ä  |   _  |   +  |   [  |   ]  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |  Del |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
   {KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC},
-  {_______, _______, KC_LABK, KC_SLSH, KC_RABK, _______, _______, KC_MINS, KC_EQL,  KC_LCBR, KC_RCBR, KC_BSLS},
-  {_______, _______, _______, KC_LBRC, KC_RBRC, _______, _______, KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, _______},
+  {_______, _______, KC_LABK, KC_SLSH, KC_RABK, KC_UE,   KC_SS,   KC_MINS, KC_EQL,  KC_LCBR, KC_RCBR, KC_BSLS},
+  {_______, _______, _______, KC_LBRC, KC_RBRC, KC_OE,   KC_AE,   KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, _______},
   {_______, _______, _______, _______, _______, KC_DEL,  _______, _______, _______, _______, _______, _______}
 },
 
