@@ -42,8 +42,7 @@ enum planck_keycodes {
 };
 
 enum tap_dance_keys {
-  TD_AE_OE = 0,
-  TD_UE_SS
+  TD_UMLS = 0
 };
 
 #define KC_AE RALT(KC_Q)
@@ -62,14 +61,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl |  GUI |  Alt | Media|Lower | Bksp |Space |Raise | Move |  Ä Ö |  Ü ß | Ctrl |
+ * | Ctrl |  GUI |  Alt | Media|Lower | Bksp |Space |Raise | Move |      | Umlt | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
-  {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,         KC_P,         KC_BSPC},
-  {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,         KC_SCLN,      KC_QUOT},
-  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,       KC_SLSH,      KC_ENT },
-  {KC_LCTL, KC_LGUI, KC_LALT, MEDIA,   LOWER,   KC_BSPC, KC_SPC,  RAISE,   MOVE,    TD(TD_AE_OE), TD(TD_UE_SS), KC_RCTL}
+  {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,        KC_BSPC},
+  {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,     KC_QUOT},
+  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,     KC_ENT },
+  {KC_LCTL, KC_LGUI, KC_LALT, MEDIA,   LOWER,   KC_BSPC, KC_SPC,  RAISE,   MOVE,    _______, TD(TD_UMLS), KC_RCTL}
 },
 
 /* Colemak
@@ -80,14 +79,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl |  GUI |  Alt | Media|Lower | Bksp |Space |Raise | Move |  Ä Ö |  Ü ß | Ctrl |
+ * | Ctrl |  GUI |  Alt | Media|Lower | Bksp |Space |Raise | Move |      | Umlt | Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK] = {
-  {KC_ESC,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,         KC_SCLN,      KC_BSPC},
-  {KC_TAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,         KC_O,         KC_QUOT},
-  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,       KC_SLSH,      KC_ENT },
-  {KC_LCTL, KC_LGUI, KC_LALT, MEDIA,   LOWER,   KC_BSPC, KC_SPC,  RAISE,   MOVE,    TD(TD_AE_OE), TD(TD_UE_SS), KC_RCTL}
+  {KC_ESC,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,     KC_BSPC},
+  {KC_TAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,        KC_QUOT},
+  {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,     KC_ENT },
+  {KC_LCTL, KC_LGUI, KC_LALT, MEDIA,   LOWER,   KC_BSPC, KC_SPC,  RAISE,   MOVE,    _______, TD(TD_UMLS), KC_RCTL}
 },
 
 /* Lower
@@ -187,50 +186,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   float one_up_song[][2] = SONG(ONE_UP_SOUND);
 #endif
 
-void dance_ae_oe_finished(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    register_code16(KC_RALT);
-    register_code16(KC_Q);
-  } else {
-    register_code16(KC_RALT);
-    register_code16(KC_P);
+void dance_umlauts_finished(qk_tap_dance_state_t *state, void *user_data) {
+  register_code16(KC_RALT);
+  switch (state->count) {
+    case 1:
+      register_code16(KC_Q);
+      break;
+    case 2:
+      register_code16(KC_P);
+      break;
+    case 3:
+      register_code16(KC_Y);
+      break;
+    default:
+      register_code16(KC_S);
+      break;
   }
 };
 
-void dance_ae_oe_reset(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    unregister_code16(KC_Q);
-    unregister_code16(KC_RALT);
-  } else {
-    unregister_code16(KC_P);
-    unregister_code16(KC_RALT);
+void dance_umlauts_reset(qk_tap_dance_state_t *state, void *user_data) {
+  switch (state->count) {
+    case 1:
+      unregister_code16(KC_Q);
+      break;
+    case 2:
+      unregister_code16(KC_P);
+      break;
+    case 3:
+      unregister_code16(KC_Y);
+      break;
+    default:
+      unregister_code16(KC_S);
+      break;
   }
-};
-
-void dance_ue_ss_finished(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    register_code16(KC_RALT);
-    register_code16(KC_Y);
-  } else {
-    register_code16(KC_RALT);
-    register_code16(KC_S);
-  }
-};
-
-void dance_ue_ss_reset(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    unregister_code16(KC_Y);
-    unregister_code16(KC_RALT);
-  } else {
-    unregister_code16(KC_S);
-    unregister_code16(KC_RALT);
-  }
+  unregister_code16(KC_RALT);
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   // Tap dance macros for umlauts and sharp s
-  [TD_AE_OE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_ae_oe_finished, dance_ae_oe_reset),
-  [TD_UE_SS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_ue_ss_finished, dance_ue_ss_reset)
+  [TD_UMLS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_umlauts_finished, dance_umlauts_reset)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
