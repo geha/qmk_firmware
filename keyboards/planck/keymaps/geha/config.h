@@ -43,6 +43,9 @@
 // time in ms for tap dances to register
 #define TAPPING_TERM 200
 
+// modifiers are cleared on layer change (weak modifiers)
+#define PREVENT_STUCK_MODIFIERS
+
 #define MOUSEKEY_MOVE_DELTA        1
 #define MOUSEKEY_DELAY             300
 #define MOUSEKEY_INTERVAL          25
