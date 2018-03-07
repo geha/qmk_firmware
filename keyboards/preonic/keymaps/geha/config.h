@@ -41,4 +41,7 @@
 // modifiers are cleared on layer change (weak modifiers)
 #define PREVENT_STUCK_MODIFIERS
 
+// https://docs.qmk.fm/feature_advanced_keycodes.html#permissive-hold
+#define PERMISSIVE_HOLD
+
 #endif
