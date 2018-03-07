@@ -35,4 +35,10 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
 
+// time in ms for tap dances to register
+#define TAPPING_TERM 200
+
+// modifiers are cleared on layer change (weak modifiers)
+#define PREVENT_STUCK_MODIFIERS
+
 #endif
