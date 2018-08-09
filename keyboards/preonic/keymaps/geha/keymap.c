@@ -34,6 +34,7 @@ enum preonic_keycodes {
   RAISE,
   MOVE,
   NUMPAD,
+  ARROW,
   ZELDA,
   ONE_UP
 };
@@ -122,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |   Ä  |   Ö  |   Ü  |   ß  |      |   _  |   -  |   {  |   }  |      | Del  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |   °  |      |      |      |      |   +  |   =  |   [  |   ]  |      |      |
+ * |      |   °  |      |      |      |      |   +  |   =  |   [  |   ]  |  ->  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |    Delete   |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
@@ -131,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_GRV,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
   {_______, KC_EURO, _______, _______, _______, _______, _______, _______, KC_LPRN, KC_RPRN, _______, KC_BSPC},
   {_______, KC_AE,   KC_OE,   KC_UE,   KC_SS,   _______, KC_UNDS, KC_MINS, KC_LCBR, KC_RCBR, _______, KC_DEL },
-  {_______, KC_DEGR, _______, _______, _______, _______, KC_PLUS, KC_EQL , KC_LBRC, KC_RBRC, _______, _______},
+  {_______, KC_DEGR, _______, _______, _______, _______, KC_PLUS, KC_EQL , KC_LBRC, KC_RBRC, ARROW,   _______},
   {_______, _______, _______, _______, _______, KC_DEL,  KC_DEL,  _______, _______, _______, _______, _______}
 },
 
@@ -257,6 +258,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           } else {
             layer_off(_NUMPAD);
             update_tri_layer(_LOWER, _RAISE, _ADJUST);
+          }
+          return false;
+          break;
+        case ARROW:
+          if (record->event.pressed) {
+              SEND_STRING("->");
           }
           return false;
           break;
