@@ -39,6 +39,10 @@ enum preonic_keycodes {
   ONE_UP
 };
 
+enum preonic_tap_dances {
+  TD_CTRLALT_NUMPAD = 0
+};
+
 #define KC_AE   RALT(KC_Q)
 #define KC_OE   RALT(KC_P)
 #define KC_UE   RALT(KC_Y)
@@ -49,7 +53,10 @@ enum preonic_keycodes {
 #define LT_NMPD LT(_NUMPAD, KC_TAB)
 #define LT_MOVE LT(_MOVEMENT, KC_COMM)
 #define M_FLOAT LCTL(LSFT(KC_9))
-#define TG_NMPD ACTION_TAP_DANCE_DUAL_ROLE(KC_LCA, NUMPAD)
+#define TG_NMPD TG(_NUMPAD)
+// tap dance for holding ctrl + alt when hold once and switching
+// to num pad layer when hitting multiple times
+#define TD_CANP TD(TD_CTRLALT_NUMPAD)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -92,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
   {LT_NMPD, KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {KC_LCTL, KC_LGUI, KC_LALT, MOVE,    LOWER,   KC_SPC,  KC_SPC,  RAISE,   MOVE,    KC_RALT, TG_NMPD, KC_RCTL}
+  {KC_LCTL, KC_LGUI, KC_LALT, MOVE,    LOWER,   KC_SPC,  KC_SPC,  RAISE,   MOVE,    KC_RALT, TD_CANP, KC_RCTL}
 },
 
 /* Lower
@@ -143,19 +150,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      | Prev | Play | Next |  :   |      | Esc  |   7  |   8  |   9  |   -  | Bksp |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      | Vol- | Mute | Vol+ |  .   | Calc |      |   4  |   5  |   6  |   +  | Del  |
+ * |NP off| Vol- | Mute | Vol+ |  .   | Calc |      |   4  |   5  |   6  |   +  | Del  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      | Float|  ,   |      |      |   1  |   2  |   3  |   :  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |   0  |   ,  |   .  |      |      |
+ * |      |      |      |      |      |             |   0  |   ,  |   .  |NP off|      |
  * `-----------------------------------------------------------------------------------'
  */
 [_NUMPAD] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, KC_SLSH, KC_ASTR, _______},
   {_______, KC_MPRV, KC_MPLY, KC_MNXT, KC_COLN, _______, KC_ESC,  KC_7,    KC_8,    KC_9,    KC_MINS, KC_BSPC},
-  {_______, KC_VOLD, KC_MUTE, KC_VOLU, KC_DOT,  KC_CALC, _______, KC_4,    KC_5,    KC_6,    KC_PLUS, KC_DEL },
+  {TG_NMPD, KC_VOLD, KC_MUTE, KC_VOLU, KC_DOT,  KC_CALC, _______, KC_4,    KC_5,    KC_6,    KC_PLUS, KC_DEL },
   {_______, _______, _______, M_FLOAT, KC_COMM, _______, _______, KC_1,    KC_2,    KC_3,    KC_COLN, _______},
-  {_______, _______, _______, _______, _______, _______, _______, KC_0,    LT_MOVE, KC_DOT,  _______, _______}
+  {_______, _______, _______, _______, _______, _______, _______, KC_0,    LT_MOVE, KC_DOT,  TG_NMPD, _______}
 },
 
 /* Movement
@@ -200,7 +207,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
 
+};
 
+void dance_ctrlalt_numpad_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    register_code (KC_LCTL);
+    register_code (KC_LALT);
+  } else {
+    layer_on(_NUMPAD);
+    update_tri_layer(_LOWER, _RAISE, _ADJUST);
+  }
+}
+
+void dance_ctrlalt_numpad_reset (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    unregister_code (KC_LCTL);
+    unregister_code (KC_LALT);
+  }
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  //Tap once for Esc, twice for Caps Lock
+  [TD_CTRLALT_NUMPAD]  = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, dance_ctrlalt_numpad_finished, dance_ctrlalt_numpad_reset, 250)
+// Other declarations would go here, separated by commas, if you have them
 };
 
 #ifdef AUDIO_ENABLE
