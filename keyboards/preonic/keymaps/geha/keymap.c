@@ -49,6 +49,7 @@ enum preonic_keycodes {
 #define LT_NMPD LT(_NUMPAD, KC_TAB)
 #define LT_MOVE LT(_MOVEMENT, KC_COMM)
 #define M_FLOAT LCTL(LSFT(KC_9))
+#define TG_NMPD ACTION_TAP_DANCE_DUAL_ROLE(KC_LCA, NUMPAD)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -83,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   D  |   V  |   K  |   H  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl |  GUI |  Alt | Move |Lower |    Space    |Raise | Move | Alt  |CtlAlt| Ctrl |
+ * | Ctrl |  GUI |  Alt | Move |Lower |    Space    |Raise | Move | Alt  | CA/NP| Ctrl |
  * `-----------------------------------------------------------------------------------'
  */
 [_COLEMAK_MDH] = {
@@ -91,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
   {LT_NMPD, KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    KC_M,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
   {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT },
-  {KC_LCTL, KC_LGUI, KC_LALT, MOVE,    LOWER,   KC_SPC,  KC_SPC,  RAISE,   MOVE,    KC_RALT, KC_LCA,  KC_RCTL}
+  {KC_LCTL, KC_LGUI, KC_LALT, MOVE,    LOWER,   KC_SPC,  KC_SPC,  RAISE,   MOVE,    KC_RALT, TG_NMPD, KC_RCTL}
 },
 
 /* Lower
