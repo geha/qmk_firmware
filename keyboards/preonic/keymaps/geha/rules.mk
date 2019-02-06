@@ -1,6 +1,6 @@
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
+#ifndef QUANTUM_DIR
+#	include ../../../../Makefile
+#endif
 
 MOUSEKEY_ENABLE = no      # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes     # Audio control and System control(+450)
