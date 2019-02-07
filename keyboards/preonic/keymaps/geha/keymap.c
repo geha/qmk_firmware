@@ -106,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F1  |  F2  |  F3  |  F4  |      |      |   &  |   *  |   ~  |      | Bksp |
+ * |  Esc |  F1  |  F2  |  F3  |  F4  |      |      |   &  |   *  |   ~  |      | Bksp |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |  F5  |  F6  |  F7  |  F8  |      |      |   $  |   %  |   ^  |      | Del  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT_preonic_grid( \
   KC_TILD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, _______, KC_AMPR, KC_ASTR, KC_TILD, _______, KC_BSPC, \
+  KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, _______, KC_AMPR, KC_ASTR, KC_TILD, _______, KC_BSPC, \
   _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, _______, KC_DLR,  KC_PERC, KC_CIRC, _______, KC_DEL , \
   _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, KC_EXLM, KC_AT,   KC_HASH, KC_DEGR, _______, \
   _______, _______, _______, _______, _______, KC_BSPC, KC_BSPC, _______, _______, KC_LALT, _______, _______  \
@@ -317,4 +317,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           break;
       }
     return true;
+};
+
+void encoder_update_user(uint8_t index, bool clockwise) {
+  if (index == 0) { /* First encoder */
+    if (layer_state_is(_MOVEMENT)) {
+      if (clockwise) {
+        tap_code(KC_VOLU);
+      } else {
+        tap_code(KC_VOLD);
+      }
+    } else {
+      if (clockwise) {
+        tap_code(KC_WH_U);
+      } else {
+        tap_code(KC_WH_D);
+      }
+    }
+  }
 };

@@ -44,4 +44,8 @@
 // https://docs.qmk.fm/feature_advanced_keycodes.html#permissive-hold
 #define PERMISSIVE_HOLD
 
+// Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds.
+// Used for volume change on rotary knob
+#define TAP_CODE_DELAY 10
+
 #endif
