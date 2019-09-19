@@ -50,4 +50,12 @@
 
 #define ENCODER_RESOLUTION 2
 
+#define MOUSEKEY_MOVE_DELTA 4
+#define MOUSEKEY_DELAY 200              // Delay between pressing a movement key and cursor movement
+#define MOUSEKEY_INTERVAL 16            // Time between cursor movements
+#define MOUSEKEY_MAX_SPEED 10           // Maximum cursor speed at which acceleration stops
+#define MOUSEKEY_TIME_TO_MAX 90         // Time until maximum cursor speed is reached
+#define MOUSEKEY_WHEEL_MAX_SPEED 2      // Maximum number of scroll steps per scroll action
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 120  // Time until maximum scroll speed is reached
+
 #endif
